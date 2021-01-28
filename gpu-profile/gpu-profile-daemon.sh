@@ -57,16 +57,6 @@ process_container() {
   echo "Setting power limit: $POWER_LIMIT watt"
   nvidia-smi -i $gpu_id -pl $POWER_LIMIT # This does not require X. Everything below does.
 
-  if [ -n "$FAN_SPEED" ] && [ "$FAN_SPEED" != "0" ]; then
-    echo "Setting target fan speed: $FAN_SPEED"
-    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=1"
-    sleep 3
-    nvidia-settings -a "[fan:$gpu_id]/GPUTargetFanSpeed=$FAN_SPEED"
-  else
-    echo "Setting auto fan speed"
-    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=0"
-  fi
-
   echo "Setting memory offset $MEM_CLOCK_OFFSET with clock support $CLOCK_SUPPORT"
   nvidia-settings -a "[gpu:$gpu_id]/GPUMemoryTransferRateOffset[$CLOCK_SUPPORT]=$MEM_CLOCK_OFFSET"
 
