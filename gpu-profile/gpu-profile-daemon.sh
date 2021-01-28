@@ -64,10 +64,10 @@ process_container() {
   fi
 
   echo "Setting memory offset: $memory_offset"
-  nvidia-settings -a "[gpu:$gpu_id]/GPUMemoryTransferRateOffset[$CLOCK_COUNT]=$memory_offset"
+  nvidia-settings -a "[gpu:$gpu_id]/GPUMemoryTransferRateOffset[$CLOCK_SUPPORT]=$MEM_CLOCK_OFFSET"
 
   echo "Setting clock offset: $clock_offset"
-  nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_COUNT]=$clock_offset"
+  nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_SUPPORT]=$CLOCK_OFFSET"
 
   sleep 3
   pkill -f /usr/lib/xorg/Xorg # Kill X server
