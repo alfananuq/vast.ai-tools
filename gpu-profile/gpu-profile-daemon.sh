@@ -11,12 +11,9 @@ if ! test -f "$config_path/default.conf"; then
 fi
 
 # Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
-init 3 # Kill X server if already running
-pkill -f /usr/lib/xorg/Xorg
+X :99 &
 sleep 3
-X :0 &
-sleep 5
-export DISPLAY=:0
+export DISPLAY=:99
 sleep 3
 
 # Enable persistence mode
@@ -73,7 +70,7 @@ process_container() {
   nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_COUNT]=$clock_offset"
 
   sleep 3
-  pkill -f /usr/lib/xorg/Xorg
+  pkill -f /usr/lib/xorg/Xorg # Kill X server
 }
 
 
