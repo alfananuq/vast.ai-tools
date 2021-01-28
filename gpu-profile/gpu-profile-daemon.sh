@@ -63,10 +63,10 @@ process_container() {
     nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=0"
   fi
 
-  echo "Setting memory offset: $memory_offset"
+  echo "Setting memory offset $MEM_CLOCK_OFFSET with clock support $CLOCK_SUPPORT"
   nvidia-settings -a "[gpu:$gpu_id]/GPUMemoryTransferRateOffset[$CLOCK_SUPPORT]=$MEM_CLOCK_OFFSET"
 
-  echo "Setting clock offset: $clock_offset"
+  echo "Setting clock offset $CLOCK_OFFSET with clock support $CLOCK_SUPPORT"
   nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_SUPPORT]=$CLOCK_OFFSET"
 
   sleep 3
