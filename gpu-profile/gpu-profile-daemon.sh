@@ -62,6 +62,8 @@ process_container() {
 
   echo "Setting clock offset $CLOCK_OFFSET with clock support $CLOCK_SUPPORT"
   nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_SUPPORT]=$CLOCK_OFFSET"
+  
+  pkill -f /usr/lib/xorg/Xorg
 }
 
 
