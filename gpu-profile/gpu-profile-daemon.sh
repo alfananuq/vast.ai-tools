@@ -11,6 +11,8 @@ if ! test -f "$config_path/default.conf"; then
 fi
 
 # Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
+pkill -f /usr/lib/xorg/Xorg
+sleep 3
 X :99 &
 sleep 3
 export DISPLAY=:99
@@ -57,7 +59,7 @@ process_container() {
 
   if [ -n "$FAN_SPEED" ] && [ "$FAN_SPEED" != "0" ]; then
     echo "Setting target fan speed: $FAN_SPEED"
-    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=1" -a "[fan:$gpu_id]/GPUTargetFanSpeed=$FAN_SPEED"
+    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=1"
     sleep 3
     nvidia-settings -a "[fan:$gpu_id]/GPUTargetFanSpeed=$FAN_SPEED"
   else
