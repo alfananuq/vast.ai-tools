@@ -10,6 +10,12 @@ if ! test -f "$config_path/default.conf"; then
   exit
 fi
 
+# Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
+X :99 &
+sleep 3
+export DISPLAY=:99
+sleep 3
+
 # Enable persistence mode
 nvidia-smi -pm 1
 
@@ -48,12 +54,6 @@ process_container() {
 
   echo "Setting power limit: $POWER_LIMIT watt"
   nvidia-smi -i $gpu_id -pl $POWER_LIMIT # This does not require X. Everything below does.
-  
-  # Setup X for overclocking. This is messy and might not work on your machine. Fuck nvidia.
-  X :99 &
-  sleep 3
-  export DISPLAY=:99
-  sleep 3
 
   if [ -n "$FAN_SPEED" ] && [ "$FAN_SPEED" != "0" ]; then
     echo "Setting target fan speed: $FAN_SPEED"
@@ -70,9 +70,6 @@ process_container() {
 
   echo "Setting clock offset $CLOCK_OFFSET with clock support $CLOCK_SUPPORT"
   nvidia-settings -a "[gpu:$gpu_id]/GPUGraphicsClockOffset[$CLOCK_SUPPORT]=$CLOCK_OFFSET"
-
-  sleep 3
-  pkill -f /usr/lib/xorg/Xorg # Kill X server
 }
 
 
