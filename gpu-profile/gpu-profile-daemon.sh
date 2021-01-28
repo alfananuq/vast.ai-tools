@@ -56,8 +56,8 @@ process_container() {
   sleep 3
 
   if [ -n "$FAN_SPEED" ] && [ "$FAN_SPEED" != "0" ]; then
-    echo "Setting target fan speed: $target_fan_speed"
-    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=1" -a "[fan:$gpu_id]/GPUTargetFanSpeed=$target_fan_speed"
+    echo "Setting target fan speed: $FAN_SPEED"
+    nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=1" -a "[fan:$gpu_id]/GPUTargetFanSpeed=$FAN_SPEED"
   else
     echo "Setting auto fan speed"
     nvidia-settings -a "[gpu:$gpu_id]/GPUFanControlState=0"
